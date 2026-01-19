@@ -1,2 +1,1 @@
-# NagasakiStory.github.io
-Story from Nagasaki
+# KyushuStory.github.io
