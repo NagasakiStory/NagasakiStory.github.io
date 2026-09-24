@@ -1,6 +1,26 @@
 <html>
 <script>
-  window.location.replace("/tachibana/en/index.html");
+(function () {
+  // Avoid infinite redirect loops if this script somehow loads on the target pages too
+  var path = window.location.pathname;
+  if (path.indexOf('/tachibana/en/') !== -1 || path.indexOf('/tachibana/ja/') !== -1) {
+    return;
+  }
+
+  // navigator.languages is an ordered array of the user's preferred languages;
+  // fall back to navigator.language or navigator.userLanguage for older browsers
+  var langs = navigator.languages || [navigator.language || navigator.userLanguage];
+
+  var isJapanese = langs.some(function (lang) {
+    return lang.toLowerCase().indexOf('ja') === 0; // matches "ja", "ja-JP", etc.
+  });
+
+  var target = isJapanese
+    ? '/tachibana/ja/index.html'
+    : '/tachibana/en/index.html';
+
+  window.location.replace(target); // replace() so it doesn't clutter browser history
+})();
 </script>
   
 </html>
