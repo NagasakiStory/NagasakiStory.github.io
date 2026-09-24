@@ -1,26 +1,33 @@
-<html>
-<script>
-(function () {
-  // Avoid infinite redirect loops if this script somehow loads on the target pages too
-  var path = window.location.pathname;
-  if (path.indexOf('/tachibana/en/') !== -1 || path.indexOf('/tachibana/jp/') !== -1) {
-    return;
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+  (function () {
+    var path = window.location.pathname;
+    if (path.indexOf('/tachibana/en/') !== -1 || path.indexOf('/tachibana/jp/') !== -1) {
+      return;
+    }
 
-  // navigator.languages is an ordered array of the user's preferred languages;
-  // fall back to navigator.language or navigator.userLanguage for older browsers
-  var langs = navigator.languages || [navigator.language || navigator.userLanguage];
+    var langs = navigator.languages || [navigator.language || navigator.userLanguage];
 
-  var isJapanese = langs.some(function (lang) {
-    return lang.toLowerCase().indexOf('ja') === 0; // matches "ja", "ja-JP", etc.
-  });
+    var isJapanese = langs.some(function (lang) {
+      return lang.toLowerCase().indexOf('ja') === 0;
+    });
 
-  var target = isJapanese
-    ? '/tachibana/jp/index.html'
-    : '/tachibana/en/index.html';
+    var target = isJapanese
+      ? '/tachibana/jp/index.html'
+      : '/tachibana/en/index.html';
 
-  window.location.replace(target); // replace() so it doesn't clutter browser history
-})();
-</script>
-  
+    window.location.replace(target);
+  })();
+  </script>
+</head>
+<body>
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=/tachibana/en/index.html">
+    <p>JavaScript is disabled. <a href="/tachibana/en/index.html">Click here to continue</a>.</p>
+  </noscript>
+</body>
 </html>
